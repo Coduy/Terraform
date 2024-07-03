@@ -1,0 +1,45 @@
+  trigger: 
+  - main
+
+variables:
+  azureServiceConnection: 'Microsoft Partner Network (4c6a923c-ddba-4a3e-8060-3b3d4628f8b5)'
+  storageAccountName: 'terraformpokroytesting'
+  containerName: 'tfstate'
+  key: 'terraform.tfstate'
+  accessKey: '$(accessKey)'  # This should be a secret variable in your pipeline settings
+
+stages:
+- stage: TerraformInitApply
+  jobs:
+  - job: Terraform
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.x'
+    - checkout: self
+
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: $(azureServiceConnection)
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          # Install Terraform
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          nvm install 14
+          curl -LO https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip
+          unzip terraform_1.0.0_linux_amd64.zip
+          sudo mv terraform /usr/local/bin/
+          
+          # Initialize Terraform
+          terraform init -backend-config="storage_account_name=$(storageAccountName)" \
+                         -backend-config="container_name=$(containerName)" \
+                         -backend-config="key=$(key)" \
+                         -backend-config="access_key=$(accessKey)"
+          # Apply Terraform configuration
+          terraform apply -auto-approve
+
