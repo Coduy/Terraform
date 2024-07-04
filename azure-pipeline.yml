@@ -1,5 +1,5 @@
 trigger: 
-  - main
+  - master
 
 variables:
   azureServiceConnection: 'SP_AzureRM_Pokroy_Testing'
