@@ -32,10 +32,10 @@ stages:
           sudo mv terraform /usr/local/bin/
           
           # Initialize Terraform
-          terraform init -backend-config="storage_account_name=$(storageAccountName)" \
-                         -backend-config="container_name=$(containerName)" \
-                         -backend-config="key=$(key)" \
-                         -backend-config="access_key=$(accessKey)"
+          terraform init -backend-config="storage_account_name=${{env.storageAccountName}}" \
+                         -backend-config="container_name=${{env.containerName}}" \
+                         -backend-config="key=${{env.key}}" \
+                         -backend-config="access_key=${{env.accessKey}}"
           # Apply Terraform configuration
           terraform apply -auto-approve
 
