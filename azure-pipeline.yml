@@ -2,7 +2,7 @@ trigger:
   - main
 
 variables:
-  azureServiceConnection: 'Microsoft Partner Network (4c6a923c-ddba-4a3e-8060-3b3d4628f8b5)'
+  azureServiceConnection: 'SP_AzureRM_Pokroy_Testing'
   storageAccountName: 'terraformpokroytesting'
   containerName: 'tfstate'
   key: 'terraform.tfstate'
