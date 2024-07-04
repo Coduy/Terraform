@@ -3,7 +3,7 @@ trigger:
 
 variables:
   - group: Terraform_SPN
-  azureServiceConnection: 'SP_AzureRM_Pokroy_Testing'
+    azureServiceConnection: 'SP_AzureRM_Pokroy_Testing'
 
 stages:
 - stage: TerraformInitApply
