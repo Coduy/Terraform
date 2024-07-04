@@ -1,8 +1,8 @@
 resource "azurerm_virtual_network" "my_vnet_3" {
   name                = "my-vnet-3"
   address_space       = ["10.10.0.0/16"]
-  location            = azurerm_resource_group.rg-pokroy-tf-demo-01-01.location
-  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01-01.name
+  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
+  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
 
   tags = {
   environment = "testing"
