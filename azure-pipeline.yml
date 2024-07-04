@@ -4,10 +4,6 @@ trigger:
 variables:
   - group: Terraform_SPN
   azureServiceConnection: 'SP_AzureRM_Pokroy_Testing'
-  storageAccountName: 'terraformpokroytesting'
-  containerName: 'tfstate'
-  key: 'terraform.tfstate'
-  accessKey: '$(accessKey)'  # This should be a secret variable in your pipeline settings
 
 stages:
 - stage: TerraformInitApply
