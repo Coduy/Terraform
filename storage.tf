@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "sg-pokroy-tf-demo" {
-  name                     = "sgpokroytfdemo"
+  name                     = "sgpokroytfdemo01"
   resource_group_name      = azurerm_resource_group.rg-pokroy-tf-demo-01.name
   location                 = azurerm_resource_group.rg-pokroy-tf-demo-01.location
   account_tier             = "Standard"
