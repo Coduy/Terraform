@@ -3,7 +3,6 @@ trigger:
 
 variables:
   - group: Terraform_SPN
-    azureServiceConnection: 'SP_AzureRM_Pokroy_Testing'
 
 stages:
 - stage: TerraformInitApply
@@ -19,7 +18,7 @@ stages:
 
     - task: AzureCLI@2
       inputs:
-        azureSubscription: $(azureServiceConnection)
+        azureSubscription: SP_AzureRM_Pokroy_Testing
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
