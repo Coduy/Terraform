@@ -2,6 +2,7 @@ trigger:
   - master
 
 variables:
+  - group: Terraform_SPN
   azureServiceConnection: 'SP_AzureRM_Pokroy_Testing'
   storageAccountName: 'terraformpokroytesting'
   containerName: 'tfstate'
