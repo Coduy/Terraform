@@ -22,3 +22,12 @@ resource "azurerm_subnet" "my_subnet_2_vnet_3" {
   virtual_network_name = azurerm_virtual_network.my_vnet_3.name
   address_prefixes     = ["10.10.1.0/24"]
 }
+
+# Subnet 3
+resource "azurerm_subnet" "my_subnet_3_vnet_3" {
+  name                 = "subnet-3"
+  resource_group_name  = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+  virtual_network_name = azurerm_virtual_network.my_vnet_3.name
+  address_prefixes     = ["10.10.2.0/24"]
+}
+
