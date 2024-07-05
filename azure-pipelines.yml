@@ -17,11 +17,7 @@ variables:
   value: 'SP_AzureRM_Pokroy_Testing'
 - name: bk_storage_account
   value: 'terraformpokroytesting'
-  
-
-
-
-
+ 
 stages:
   - stage: tfvalidate
     jobs:
@@ -67,7 +63,7 @@ stages:
           command: 'init'
           backendServiceArm: $(bk_service_connection)
           backendAzureRmResourceGroupName: $(bk_resource_group)
-          backendAzureRmStorageAccountName: $(STORAGE_ACCCOUNT)
+          backendAzureRmStorageAccountName: $(bk_storage_account)
           backendAzureRmContainerName: $(CONTAINER_NAME)
           backendAzureRmKey: $(KEY)
         displayName: Terraform Init

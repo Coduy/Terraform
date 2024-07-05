@@ -1,5 +1,5 @@
 trigger: 
-  - master
+  - none
 
 variables:
   - group: Terraform_SPN
