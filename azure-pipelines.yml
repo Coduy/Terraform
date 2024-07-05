@@ -11,9 +11,16 @@ pool:
 
 variables:
 - group: Terraform_SPN
+- name: bk_resource_group
+  value: 'rg-backend-tf'
+- name: bk_service_connection
+  value: 'SP_AzureRM_Pokroy_Testing'
+
+
+
 
 stages:
-  - stage: validate
+  - stage: tfvalidate
     jobs:
     - job: validate
       continueOnError: false
@@ -27,9 +34,51 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          backendServiceArm: 'SP_AzureRM_Pokroy_Testing'
-          backendAzureRmResourceGroupName: 'rg-backend-tf'
-          backendAzureRmStorageAccountName: 'terraformpokroytesting'
-          backendAzureRmContainerName: 'tfstate'
-          backendAzureRmKey: 'prueba.finalvamos.tfstate'
-        displayName: Connecto to Backend
+          backendServiceArm: $(bk_service_connection)
+          backendAzureRmResourceGroupName: $(bk_resource_group)
+          backendAzureRmStorageAccountName: '$(STORAGE_ACCCOUNT)'
+          backendAzureRmContainerName: '$(CONTAINER_NAME)'
+          backendAzureRmKey: '$(KEY)'
+        displayName: Terraform Init
+        
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
+          command: 'validate'
+        displayName: TF validate
+  
+  - stage: tfdeploy
+    condition: succeeded('tfvalidate')
+    dependsOn: tfvalidate
+    jobs:
+    - job: apply
+      steps:
+      - task: TerraformInstaller@1
+        inputs:
+          terraformVersion: 'latest'
+        displayName: Install TF
+
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          backendServiceArm: $(bk_service_connection)
+          backendAzureRmResourceGroupName: $(bk_resource_group)
+          backendAzureRmStorageAccountName: '$(STORAGE_ACCCOUNT)'
+          backendAzureRmContainerName: '$(CONTAINER_NAME)'
+          backendAzureRmKey: '$(KEY)'
+        displayName: Terraform Init
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
+          command: 'plan'
+          environmentServiceNameAzureRM: 'SP_AzureRM_Pokroy_Testing'
+        displayName: Terraform Plan
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
+          command: 'apply'
+          environmentServiceNameAzureRM: 'SP_AzureRM_Pokroy_Testing'
+        displayName: Terraform Apply
+      
+        
