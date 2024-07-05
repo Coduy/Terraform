@@ -17,6 +17,7 @@ steps:
     RunAsPreJob: false
 
 - script: | 
-    echo "vamos"  
+    echo "vamos" 
+    echo $(test)
 
 
