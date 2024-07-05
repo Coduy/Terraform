@@ -40,4 +40,4 @@ stages:
               provider: "azurerm"
               command: "destroy"
               environmentServiceNameAzureRM: "SP_AzureRM_Pokroy_Testing"
-            displayName: Terraform Plan
+            displayName: Terraform Destroy
