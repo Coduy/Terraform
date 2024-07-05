@@ -1,15 +1,19 @@
 trigger:
-  - none
+  - master
 
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  sp_name: 'SP_AzureRM_Pokroy_Testing'
+  keyvault_name: 'key-vault-testing-01'
+  
 steps:
 - task: AzureKeyVault@1
   inputs:
-    azureSubscription: 'SP_AzureRM_Pokroy_Testing'                    ## YOUR_SERVICE_CONNECTION_NAME
-    KeyVaultName: 'key-vault-testing-01'                         ## YOUR_KEY_VAULT_NAME
-    SecretsFilter: 'test'                          ## YOUR_SECRET_NAME. Default value: *
+    azureSubscription: $(sp_name)                  
+    KeyVaultName: $(keyvault_name)                        
+    SecretsFilter: 'test'                         
     RunAsPreJob: false
 
 - script: | 
