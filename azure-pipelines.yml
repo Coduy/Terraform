@@ -15,6 +15,7 @@ variables:
   value: 'rg-backend-tf'
 - name: bk_service_connection
   value: 'SP_AzureRM_Pokroy_Testing'
+  
 
 
 
