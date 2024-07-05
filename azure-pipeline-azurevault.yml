@@ -1,5 +1,5 @@
 trigger:
-  - master
+  - develop_keyvault
 
 pool:
   vmImage: 'ubuntu-latest'
