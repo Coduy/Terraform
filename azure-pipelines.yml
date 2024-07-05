@@ -36,7 +36,7 @@ stages:
           command: 'init'
           backendServiceArm: $(bk_service_connection)
           backendAzureRmResourceGroupName: $(bk_resource_group)
-          backendAzureRmStorageAccountName: '$(STORAGE_ACCCOUNT)'
+          backendAzureRmStorageAccountName: '$(STORAGE_ACCCOUNT_NAME)'
           backendAzureRmContainerName: '$(CONTAINER_NAME)'
           backendAzureRmKey: '$(KEY)'
         displayName: Terraform Init
