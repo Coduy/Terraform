@@ -1,4 +1,4 @@
-module "network" {
+module "network_1" {
   source              = "./modules/network"  # or use a Git URL or Terraform Registry URL
   vnet_name           = var.vnet_name
   address_space       = var.address_space
@@ -9,7 +9,7 @@ module "network" {
 }
 
 
-module "network" {
+module "network_2" {
   source              = "./modules/network"  # or use a Git URL or Terraform Registry URL
   vnet_name           = "vamos-test-net"
   address_space       = ["192.168.0.0/16"]
