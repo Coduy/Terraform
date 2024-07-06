@@ -1,5 +1,5 @@
 module "network" {
-  source              = "./ modules/network"  # or use a Git URL or Terraform Registry URL
+  source              = "./modules/network"  # or use a Git URL or Terraform Registry URL
   vnet_name           = var.vnet_name
   address_space       = var.address_space
   location            = var.location
