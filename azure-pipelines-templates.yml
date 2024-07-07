@@ -76,5 +76,12 @@ stages:
           command: 'apply'
           environmentServiceNameAzureRM: 'SP_AzureRM_Pokroy_Testing'
         displayName: Terraform Apply
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
+          command: 'show'
+          environmentServiceNameAzureRM: 'SP_AzureRM_Pokroy_Testing'
+        displayName: Terraform show
+
       
         
