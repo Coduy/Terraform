@@ -21,7 +21,7 @@ module "network_2" {
 
 # rendering storage template
 data "template_file" "storage_config"{
-    template = file("${path.module}/templates/vm_config.tpl")
+    template = file("${path.module}/templates/storage_config.tpl")
     vars = {
         storage_name = var.storage_name
         replication_type = var.replication_type
