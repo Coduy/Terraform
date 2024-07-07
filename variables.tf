@@ -43,3 +43,24 @@ variable "subnet_prefixes" {
   type        = list(string)
   default     = ["10.0.1.0/24"]
 }
+
+
+variable "replication_type" {
+  description = "type of replication LSR o GRS"
+  type        = string
+  default     = "LRS"
+}
+
+variable "storage_name" {
+  description = "unique storage name"
+  type        = string
+  default     =  "sgpokroytfdemo02"
+
+}
+
+variable "storage_tier" {
+  description = "storage type, for example: Standard o Premium"
+  type        = string
+  default     = "Standard"
+}
+

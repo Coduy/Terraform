@@ -18,3 +18,13 @@ module "network_2" {
   subnet_name         = "subnet-peuqeño"
   subnet_prefixes     = ["192.168.0.0/24"]
 }
+
+# rendering storage template
+data "template_file" "storage_config"{
+    template = file("${path.module}/templates/vm_config.tpl")
+    vars = {
+        storage_name = var.storage_name
+        replication_type = var.replication_type
+        storage_tier = var.storage_tier
+    }
+}
