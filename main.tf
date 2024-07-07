@@ -36,3 +36,5 @@ resource "azurerm_storage_account" "example" {
   location                 = azurerm_resource_group.var.region
   account_tier             = var.storage_tier
   account_replication_type = var.replication_type
+
+}
