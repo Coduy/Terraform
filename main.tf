@@ -28,3 +28,11 @@ data "template_file" "storage_config"{
         storage_tier = var.storage_tier
     }
 }
+
+# Create the storage account using the rendered values (assuming a simpler direct use)
+resource "azurerm_storage_account" "example" {
+  name                     = var.storage_name
+  resource_group_name      = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+  location                 = azurerm_resource_group.var.region
+  account_tier             = var.storage_tier
+  account_replication_type = var.replication_type
