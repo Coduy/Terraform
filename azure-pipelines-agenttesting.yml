@@ -1,7 +1,7 @@
 # Utiliza Terraform Extension
 
 trigger:
-- develop_template
+- develop_agent
 
 pool:
   vmImage: ccvpw-ansible
