@@ -62,7 +62,9 @@ module "linux_vm" {
   vm_size             = "Standard_B1s"
   admin_username      = "adminuser"
   ssh_public_key      = file("~/.ssh/id_rsa.pub")  # Path to your SSH public key
-  network_interface_ids = module.nic.network_interface_id
+  network_interface_ids = [
+    module.nic.network_interface_id
+  ]
 }
 
 # Public IP Module
