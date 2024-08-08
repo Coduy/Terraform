@@ -33,3 +33,8 @@ variable "ssh_public_key" {
   description = "The SSH public key for the VM"
   type        = string
 }
+
+variable "network_interface_ids" {
+  description = "List of network interface IDs associated with the VM"
+  type        = list(string)
+}
