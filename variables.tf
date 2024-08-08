@@ -64,3 +64,4 @@ variable "storage_tier" {
   default     = "Standard"
 }
 
+
