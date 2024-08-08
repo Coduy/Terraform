@@ -15,11 +15,12 @@ variables:
   value: 'SP_AzureRM_Pokroy_Testing'
 - name: bk_storage_account
   value: 'terraformpokroytesting'
-- name: 'SkipDestroy'
+- name: 'Destroy'
   value: 'true'
  
 stages:
   - stage: tfvalidate
+    condition: eq(variables['Destroy'], 'false')
     jobs:
     - job: validate
       continueOnError: false
@@ -94,7 +95,7 @@ stages:
 
   - stage: destroy
     displayName: 'Terraform Destroy'
-    condition: and(succeeded(), eq(variables['SkipDestroy'], 'false'))
+    condition: and(succeeded(), eq(variables['Destroy'], 'true'))
     dependsOn: []
     jobs:
     - job: destroy
