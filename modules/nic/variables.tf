@@ -34,3 +34,8 @@ variable "ip_configuration_name" {
   type        = string
   default     = "internal"
 }
+
+variable "nsg_id" {
+  description = "ID of the Network Security Group to associate with the NIC"
+  type        = string
+}

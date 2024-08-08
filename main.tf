@@ -49,6 +49,7 @@ module "nic" {
   subnet_id             = module.subnet-2.subnet_id
   private_ip_allocation = "Dynamic"
   public_ip_address_id  = module.public_ip.public_ip_id
+  nsg_id = module.nsg.nsg_id
 }
 
 
@@ -65,6 +66,7 @@ module "linux_vm" {
   network_interface_ids = [
     module.nic.network_interface_id
   ]
+
 }
 
 # Public IP Module
@@ -77,3 +79,9 @@ module "public_ip" {
   sku                 = "Basic"
 }
 
+module "nsg" {
+  source              = "./modules/nsg"
+  nsg_name            = "my-nsg"
+  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
+  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+}
