@@ -19,8 +19,10 @@ module "subnet-a" {
   subnet_name           = "lovely-dance"
   resource_group_name   = module.vnet-1.resource_group_name
   virtual_network_name  = module.vnet-1.vnet_name
-  subnet_prefixes       = var.subnet_prefixes
+  subnet_prefixes       = ["10.0.2.0/24"]
 }
+
+
 
 module "vnet-2" {
   source              = "./modules/network"
