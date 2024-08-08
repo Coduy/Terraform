@@ -14,14 +14,20 @@ module "subnet" {
   subnet_prefixes       = var.subnet_prefixes
 }
 
-
-# rendering storage template
-data "template_file" "storage_config"{
-    template = file("${path.module}/templates/storage_config.tpl")
-    vars = {
-        storage_name = var.storage_name
-        replication_type = var.replication_type
-        storage_tier = var.storage_tier
-    }
+module "vnet-2" {
+  source              = "./modules/network"
+  vnet_name           = "vnet-2"
+  address_space       = ["10.0.0.0/16"]
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
 }
+
+module "subnet-2" {
+  source                = "./modules/subnet"
+  subnet_name           = "subnet-2"
+  resource_group_name   = module.vnet-2.resource_group_name
+  virtual_network_name  = module.vnet-2.vnet_name
+  subnet_prefixes       = var.subnet_prefixes
+}
+
 
