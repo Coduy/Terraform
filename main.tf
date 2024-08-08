@@ -52,3 +52,24 @@ module "linux_vm" {
   admin_username      = "adminuser"
   ssh_public_key      = file("~/.ssh/id_rsa.pub")  # Path to your SSH public key
 }
+
+# Public IP Module
+module "public_ip" {
+  source              = "./modules/public_ip"
+  name                = "example-public-ip"
+  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
+  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+  allocation_method   = "Static"
+  sku                 = "Basic"
+}
+
+# NIC Module
+module "nic" {
+  source                = "./modules/nic"
+  name                  = "example-nic"
+  location              = "West Europe"
+  resource_group_name   = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+  subnet_id             = module.subnet-2.subnet_id
+  private_ip_allocation = "Dynamic"
+  public_ip_address_id  = module.public_ip.public_ip_id
+}
