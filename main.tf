@@ -9,8 +9,8 @@ module "vnet-1" {
 module "subnet" {
   source                = "./modules/subnet"
   subnet_name           = var.subnet_name
-  resource_group_name   = module.virtual_network.resource_group_name
-  virtual_network_name  = module.virtual_network.vnet_name
+  resource_group_name   = module.network.resource_group_name
+  virtual_network_name  = module.network.vnet_name
   subnet_prefixes       = var.subnet_prefixes
 }
 
@@ -25,12 +25,3 @@ data "template_file" "storage_config"{
     }
 }
 
-# Create the storage account using the rendered values (assuming a simpler direct use)
-resource "azurerm_storage_account" "example" {
-  name                     = var.storage_name
-  resource_group_name      = var.resource_group_name
-  location                 = var.region
-  account_tier             = var.storage_tier
-  account_replication_type = var.replication_type
-
-}
