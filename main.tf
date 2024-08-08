@@ -9,8 +9,8 @@ module "vnet-1" {
 module "subnet" {
   source                = "./modules/subnet"
   subnet_name           = var.subnet_name
-  resource_group_name   = module.network.resource_group_name
-  virtual_network_name  = module.network.vnet_name
+  resource_group_name   = module.vnet-1.resource_group_name
+  virtual_network_name  = module.vnet-1.vnet_name
   subnet_prefixes       = var.subnet_prefixes
 }
 
