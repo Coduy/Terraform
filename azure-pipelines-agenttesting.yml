@@ -8,6 +8,7 @@ pool:
 
 variables:
 - group: Terraform_SPN
+- group: SSHKeys
 - name: bk_resource_group
   value: 'rg-backend-tf'
 - name: bk_service_connection
@@ -26,6 +27,11 @@ stages:
           terraformVersion: 'latest'
         displayName: Install TF
 
+      - script: |
+          # ensure ssh public key is available
+          echo "$(SSH_PUBLIC_KEY)" >  ~/.ssh/id_rsa.pub
+      
+      
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'

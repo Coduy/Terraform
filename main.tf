@@ -41,3 +41,14 @@ module "subnet-2" {
 }
 
 
+# Linux VM Module
+module "linux_vm" {
+  source              = "./modules/linux_vm"
+  vm_name             = "my-linux-vm"
+  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
+  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+  subnet_id           = module.subnet.subnet_id
+  vm_size             = "B1s"
+  admin_username      = "adminuser"
+  ssh_public_key      = file("~/.ssh/id_rsa.pub")  # Path to your SSH public key
+}
