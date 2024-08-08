@@ -40,6 +40,17 @@ module "subnet-2" {
   subnet_prefixes       = var.subnet_prefixes
 }
 
+# NIC Module
+module "nic" {
+  source                = "./modules/nic"
+  name                  = "example-nic"
+  location              = "West Europe"
+  resource_group_name   = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+  subnet_id             = module.subnet-2.subnet_id
+  private_ip_allocation = "Dynamic"
+  public_ip_address_id  = module.public_ip.public_ip_id
+}
+
 
 # Linux VM Module
 module "linux_vm" {
@@ -64,13 +75,3 @@ module "public_ip" {
   sku                 = "Basic"
 }
 
-# NIC Module
-module "nic" {
-  source                = "./modules/nic"
-  name                  = "example-nic"
-  location              = "West Europe"
-  resource_group_name   = azurerm_resource_group.rg-pokroy-tf-demo-01.name
-  subnet_id             = module.subnet-2.subnet_id
-  private_ip_allocation = "Dynamic"
-  public_ip_address_id  = module.public_ip.public_ip_id
-}
