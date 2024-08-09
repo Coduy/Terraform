@@ -134,5 +134,5 @@ module "appgw_public_ip" {
   location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
   resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
   allocation_method   = "Static"
-  sku                 = "Basic"
+  sku                 = "Standard"
 }
