@@ -55,7 +55,7 @@ module "nic" {
 
 # Linux VM Module
 module "linux_vm" {
-  create_resource     = false
+  create_resource     = var.create_resource == "true" ? 1 : 0
   source              = "./modules/linux_vm"
   vm_name             = "my-linux-vm"
   location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
