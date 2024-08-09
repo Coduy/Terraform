@@ -67,7 +67,7 @@ variable "storage_tier" {
 variable "create_resource"{
   description = "whether to create the resourece or not"
   type = string
-  default = "1"
+  default = "0"
 }
 
 
