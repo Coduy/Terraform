@@ -98,8 +98,8 @@ module "app_gateway" {
   sku_name             = "Basic"
   sku_tier             = "Basic"
   sku_capacity         = 1
-  subnet_id           = module.subnet.subnet-appgw.id
-  public_ip_address_id = module.appgw_public_ip.id
+  subnet_id           = module.subnet-appgw.subnet_id
+  public_ip_address_id = module.appgw_public_ip.public_ip_id
   frontend_port        = 80
   backend_ip_address   = "10.0.1.4" # Example backend IP
   backend_port         = 80
