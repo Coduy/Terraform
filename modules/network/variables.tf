@@ -18,3 +18,9 @@ variable "resource_group_name" {
   type        = string
 }
 
+variable "create_resource"{
+  description = "whether to create the resourece or not"
+  type = string
+  default = "true"
+}
+
