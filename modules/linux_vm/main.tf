@@ -1,5 +1,5 @@
 resource "azurerm_linux_virtual_machine" "vm" {
-  count               = var.create_resource 
+#  count               = var.create_resource 
   name                = var.vm_name
   resource_group_name = var.resource_group_name
   location            = var.location
