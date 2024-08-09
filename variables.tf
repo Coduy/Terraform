@@ -64,10 +64,4 @@ variable "storage_tier" {
   default     = "Standard"
 }
 
-variable "create_resource"{
-  description = "whether to create the resourece or not"
-  type = string
-  default = "true"
-}
-
 

@@ -39,3 +39,8 @@ variable "network_interface_ids" {
   type        = list(string)
 }
 
+variable "create_resource"{
+  description = "whether to create the resourece or not"
+  type = string
+  default = "true"
+}
