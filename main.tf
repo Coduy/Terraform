@@ -96,7 +96,7 @@ module "app_gateway" {
   resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
   location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
   sku_name             = "Standard_Small"
-  sku_tier             = "Standard"
+  sku_tier             = "Standard_v2"
   sku_capacity         = 1
   subnet_id           = module.subnet-appgw.subnet_id
   public_ip_address_id = module.appgw_public_ip.public_ip_id
