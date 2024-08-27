@@ -1,7 +1,3 @@
-
-
-
-
 module "vnet-2" {
   source              = "./modules/network"
   vnet_name           = "vnet-2"
@@ -21,7 +17,7 @@ module "subnet-2" {
 # NIC Module
 module "nic" {
   source                = "./modules/nic"
-  name                  = "example-nic"
+  name                  = "nic"
   location              = "West Europe"
   resource_group_name   = azurerm_resource_group.rg-pokroy-tf-demo-01.name
   subnet_id             = module.subnet-2.subnet_id
@@ -38,7 +34,7 @@ module "linux_vm" {
   vm_name             = "my-linux-vm"
   location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
   resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
-  subnet_id           = module.subnet.subnet_id
+  subnet_id           = module.subnet-2.subnet_id
   vm_size             = "Standard_B1s"
   admin_username      = "adminuser"
   ssh_public_key      = file("~/.ssh/id_rsa.pub")  # Path to your SSH public key
