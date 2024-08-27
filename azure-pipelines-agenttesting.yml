@@ -123,5 +123,19 @@ stages:
           args: '-auto-approve'
         displayName: Terraform Destroy
 
+  - stage: notify
+    displayName: 'Send email notification'
+    dependsOn: destroy
+    condition: succeeded()
+    jobs: 
+    - job: sendEmail
+      steps:
+      - tasks: sendEmail@1
+        inputs:
+          to: 'pokroy@clavei.es'
+          subject: 'Terraform works fine'
+          body: | 
+            Hello Terraform
+          displayName: 'Send Sucess Email'  
       
         
