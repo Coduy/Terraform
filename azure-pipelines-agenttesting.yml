@@ -1,7 +1,7 @@
 # Utiliza Terraform Extension
 
 trigger:
-- master
+- develop_agent
 
 pool:
   name: ccvpw-ansible
@@ -16,7 +16,7 @@ variables:
 - name: bk_storage_account
   value: 'terraformpokroytesting'
 - name: 'Destroy'
-  value: 'true'
+  value: 'false'
  
 stages:
   - stage: tfvalidate
