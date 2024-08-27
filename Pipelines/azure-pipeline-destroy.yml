@@ -1,0 +1,43 @@
+# Utiliza Terraform Extension. Dest
+
+trigger:
+  - none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - group: Terraform_SPN
+  - name: bk_resource_group
+    value: "rg-backend-tf"
+  - name: bk_service_connection
+    value: "SP_AzureRM_Pokroy_Testing"
+  - name: bk_storage_account
+    value: "terraformpokroytesting"
+
+stages:
+- stage: tfdestroy
+  jobs:
+      - job: destroy
+        steps:
+          - task: TerraformInstaller@1
+            inputs:
+              terraformVersion: "latest"
+            displayName: Install TF
+
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: "azurerm"
+              command: "init"
+              backendServiceArm: $(bk_service_connection)
+              backendAzureRmResourceGroupName: $(bk_resource_group)
+              backendAzureRmStorageAccountName: $(bk_storage_account)
+              backendAzureRmContainerName: $(CONTAINER_NAME)
+              backendAzureRmKey: $(KEY)
+            displayName: Terraform destroy
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: "azurerm"
+              command: "destroy"
+              environmentServiceNameAzureRM: "SP_AzureRM_Pokroy_Testing"
+            displayName: Terraform Destroy
