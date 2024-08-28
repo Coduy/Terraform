@@ -66,7 +66,7 @@ module "nsg" {
 module "vnet-1" {
   source              = "./modules/network"
   vnet_name           = "vnet-1"
-  address_space       = ["10.0.0.0/16"]
+  address_space       = ["10.10.0.0/16"]
   location            = var.location
   resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
 }
@@ -76,5 +76,5 @@ module "subnet-1" {
   subnet_name           = "subnet1"
   resource_group_name   = module.vnet-1.resource_group_name
   virtual_network_name  = module.vnet-1.vnet_name
-  subnet_prefixes       = var.subnet_prefixes
+  subnet_prefixes       = ["10.10.0.0/24"]
 }
