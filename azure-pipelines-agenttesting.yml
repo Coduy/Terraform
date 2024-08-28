@@ -16,9 +16,9 @@ variables:
 - name: bk_storage_account
   value: 'terraformpokroytesting'
 - name: 'Destroy'
-  value: 'true'
-- name: 'NSG_NIC_LINK'
   value: 'false'
+- name: 'NSG_NIC_LINK'
+  value: 'true'
  
 stages:
   - stage: tfvalidate
