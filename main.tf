@@ -77,5 +77,5 @@ module "subnet-1" {
   subnet_name           = "subnet1"
   resource_group_name   = module.vnet-1.resource_group_name
   virtual_network_name  = module.vnet-1.vnet_name
-  subnet_prefixes       = ["10.10.0.0/24"]
+  subnet_prefixes       = var.subnet1_prefixes
 }
