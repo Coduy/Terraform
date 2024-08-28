@@ -70,4 +70,10 @@ variable "create_resource"{
   default = "0"
 }
 
+variable "NSG_NIC_LINK"{
+  type = bool
+  default = true # puede ser overriddene by pipeline
+}
+
+
 

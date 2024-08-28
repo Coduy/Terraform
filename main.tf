@@ -23,7 +23,7 @@ module "nic" {
   subnet_id             = module.subnet-2.subnet_id
   private_ip_allocation = "Dynamic"
   public_ip_address_id  = module.public_ip.public_ip_id
-  nsg_id = null # module.nsg.nsg_id
+  nsg_id = var.NSG_NIC_LINK ? module.nsg.nsg_id : null
 }
 
 
@@ -47,7 +47,7 @@ module "linux_vm" {
 # Public IP Module
 module "public_ip" {
   source              = "./modules/public_ip"
-  name                = "example-public-ip"
+  name                = "pub-ip"
   location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
   resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
   allocation_method   = "Static"
