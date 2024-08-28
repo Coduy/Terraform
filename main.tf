@@ -61,7 +61,7 @@ module "public_ip" {
 }
 
 resource "azurerm_network_interface_security_group_association" "example" {
-  network_interface_id      = module.nic.nic_id
+  network_interface_id      = module.nic.network_interface_id
   network_security_group_id = module.nsg.nsg_id
 }
 
