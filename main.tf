@@ -14,6 +14,13 @@ module "subnet-2" {
   subnet_prefixes       = var.subnet_prefixes
 }
 
+module "nsg" {
+  source              = "./modules/nsg"
+  nsg_name            = "my-nsg"
+  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
+  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+}
+
 # NIC Module
 module "nic" {
   source                = "./modules/nic"
@@ -53,10 +60,4 @@ module "public_ip" {
   sku                 = "Basic"
 }
 
-module "nsg" {
-  source              = "./modules/nsg"
-  nsg_name            = "my-nsg"
-  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
-  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
-}
 
