@@ -34,21 +34,7 @@ module "nic" {
 }
 
 
-# Linux VM Module
-module "linux_vm" {
-  create_resource     = var.create_resource
-  source              = "./modules/linux_vm"
-  vm_name             = "my-linux-vm"
-  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
-  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
-  subnet_id           = module.subnet-2.subnet_id
-  vm_size             = "Standard_B1s"
-  admin_username      = "adminuser"
-  ssh_public_key      = file("~/.ssh/id_rsa.pub")  # Path to your SSH public key
-  network_interface_ids = [
-    module.nic.network_interface_id
-  ]
-}
+
 
 # Public IP Module
 module "public_ip" {
