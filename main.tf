@@ -60,4 +60,9 @@ module "public_ip" {
   sku                 = "Basic"
 }
 
+resource "azurerm_network_interface_security_group_association" "example" {
+  network_interface_id      = module.nic.nic_id
+  network_security_group_id = module.nsg.nsg_id
+}
+
 
