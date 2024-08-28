@@ -16,7 +16,7 @@ variables:
 - name: bk_storage_account
   value: 'terraformpokroytesting'
 - name: 'Destroy'
-  value: 'false'
+  value: 'true'
 - name: 'NSG_NIC_LINK'
   value: 'true'
  
