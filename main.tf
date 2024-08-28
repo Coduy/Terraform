@@ -23,7 +23,7 @@ module "nic" {
   subnet_id             = module.subnet-2.subnet_id
   private_ip_allocation = "Dynamic"
   public_ip_address_id  = module.public_ip.public_ip_id
-  nsg_id = var.NSG_NIC_LINK ? module.nsg.nsg_id : null
+  nsg_id = module.nsg.nsg_id #var.NSG_NIC_LINK ? module.nsg.nsg_id : null
 }
 
 
