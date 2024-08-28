@@ -44,7 +44,7 @@ variable "subnet_prefixes" {
   default     = ["10.0.1.0/24"]
 }
 
-variable "subnet1_prefixes" {
+variable "subnet3_prefixes" {
   description = "The address prefixes for the subnet"
   type        = list(string)
   default     = ["10.10.0.0/24"]
