@@ -44,6 +44,12 @@ variable "subnet_prefixes" {
   default     = ["10.0.1.0/24"]
 }
 
+variable "subnet3_prefixes" {
+  description = "The address prefixes for the subnet"
+  type        = list(string)
+  default     = ["10.10.10.0/24"]
+}
+
 
 variable "replication_type" {
   description = "type of replication LSR o GRS"
@@ -69,5 +75,11 @@ variable "create_resource"{
   type = string
   default = "0"
 }
+
+variable "NSG_NIC_LINK"{
+  type = bool
+  default = true # puede ser overriddene by pipeline
+}
+
 
 
