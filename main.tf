@@ -63,7 +63,7 @@ module "container_app" {
 
 module "container_app_env" {
   source              = "./modules/container_app_env"
-  name                = "container_app_env"
+  name                = "containerappenv"
   location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
   resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
   tags = {
