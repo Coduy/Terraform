@@ -16,13 +16,13 @@ variable "container_image" {
 variable "cpu" {
   description = "Number of CPU cores for the Container App"
   type        = number
-  default     = 0.25
+  default     = "0.25Gi"
 }
 
 variable "memory" {
   description = "Amount of memory in GB for the Container App"
   type        = number
-  default     = 0.5
+  default     = "0.5Gi"
 }
 
 variable "environment_id" {
