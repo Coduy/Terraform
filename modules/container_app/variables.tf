@@ -16,7 +16,7 @@ variable "container_image" {
 variable "cpu" {
   description = "Number of CPU cores for the Container App"
   type        = number
-  default     = "0.25Gi"
+  default     = 0.25
 }
 
 variable "memory" {
