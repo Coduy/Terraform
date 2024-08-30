@@ -55,7 +55,7 @@ resource "azurerm_network_interface_security_group_association" "example" {
 module "container_app" {
   source              = "./modules/container_app"
   name                = "my-container-app"
-  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.location
+  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
   container_image     = "nginx:latest"
   environment_id      = module.container_app_env.id
 
