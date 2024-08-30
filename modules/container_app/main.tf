@@ -10,7 +10,7 @@ resource "azurerm_container_app" "this" {
       name   = var.name
       image  = var.container_image
       cpu    = var.cpu
-      memory = "0.5Gi"
+      memory = var.memory
      }
     }
 
