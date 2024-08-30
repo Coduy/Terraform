@@ -8,11 +8,6 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "location" {
-  description = "Azure location where the Container App will be created"
-  type        = string
-}
-
 variable "container_image" {
   description = "Docker image to deploy in the Container App"
   type        = string

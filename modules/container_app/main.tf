@@ -1,12 +1,11 @@
 resource "azurerm_container_app" "this" {
   name                = var.name
   resource_group_name = var.resource_group_name
-  location            = var.location
   container_app_environment_id = var.environment_id
   revision_mode = "Single"
 
   template {
-    
+
     container {
       name   = var.name
       image  = var.container_image

@@ -7,11 +7,11 @@ module "vnet-2" {
 }
 
 module "subnet-2" {
-  source                = "./modules/subnet"
-  subnet_name           = "subnet-2"
-  resource_group_name   = module.vnet-2.resource_group_name
-  virtual_network_name  = module.vnet-2.vnet_name
-  subnet_prefixes       = var.subnet_prefixes
+  source               = "./modules/subnet"
+  subnet_name          = "subnet-2"
+  resource_group_name  = module.vnet-2.resource_group_name
+  virtual_network_name = module.vnet-2.vnet_name
+  subnet_prefixes      = var.subnet_prefixes
 }
 
 module "nsg" {
@@ -30,7 +30,7 @@ module "nic" {
   subnet_id             = module.subnet-2.subnet_id
   private_ip_allocation = "Dynamic"
   public_ip_address_id  = module.public_ip.public_ip_id
-  nsg_id = module.nsg.nsg_id #var.NSG_NIC_LINK ? module.nsg.nsg_id : null
+  nsg_id                = module.nsg.nsg_id #var.NSG_NIC_LINK ? module.nsg.nsg_id : null
 }
 
 
@@ -52,7 +52,7 @@ resource "azurerm_network_interface_security_group_association" "example" {
 }
 
 # Container App
-module "container_app"{
+module "container_app" {
   source              = "./modules/container_app"
   name                = "my-container-app"
   resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.location
@@ -62,14 +62,14 @@ module "container_app"{
 
 }
 
-module "container_app_env"{
-  source = "./modules/container_app_env"
-  name = "containe_app_env"
-  location = azurerm_resource_group.rg-pokroy-tf-demo-01.location
+module "container_app_env" {
+  source              = "./modules/container_app_env"
+  name                = "container_app_env"
+  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
   resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
   tags = {
     enviroment = "production"
-    owner = "pokroy"
+    owner      = "pokroy"
   }
 }
 
