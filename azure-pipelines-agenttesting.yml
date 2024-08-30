@@ -1,7 +1,7 @@
 # Utiliza Terraform Extension
 
 trigger:
-- none
+- develop
 
 pool:
   name: ccvpw-ansible
