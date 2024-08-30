@@ -22,7 +22,6 @@ variable "cpu" {
 variable "memory" {
   description = "Amount of memory in GB for the Container App"
   type        = number
-  default     = "0.5Gi"
 }
 
 variable "environment_id" {
