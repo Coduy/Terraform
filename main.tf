@@ -58,7 +58,18 @@ module "container_app"{
   resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.location
   location            = "WestEurope"
   container_image     = "nginx:latest"
-  environment_id      = module.container_app_environment.id
+  environment_id      = module.container_app_env.id
 
+}
+
+module "container_app_env"{
+  source = "./modules/container_app_env"
+  name = "containe_app_env"
+  location = azurerm_resource_group.rg-pokroy-tf-demo-01.location
+  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+  tags = {
+    enviroment = "production"
+    owner = "pokroy"
+  }
 }
 
