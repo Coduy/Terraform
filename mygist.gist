@@ -63,3 +63,27 @@ module "linux_vm" {
     module.nic.network_interface_id
   ]
 }
+
+##CONTAINER Ap
+
+# Container App
+module "container_app" {
+  source              = "./modules/container_app"
+  name                = "my-container-app"
+  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+  container_image     = "nginx:latest"
+  environment_id      = module.container_app_env.id
+
+}
+
+
+# PUBLIC IP 
+# Public IP Module
+module "public_ip" {
+  source              = "./modules/public_ip"
+  name                = "pub-ip"
+  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
+  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+  allocation_method   = "Static"
+  sku                 = "Basic"
+}

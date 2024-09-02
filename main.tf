@@ -36,30 +36,13 @@ module "nic" {
 
 
 
-# Public IP Module
-module "public_ip" {
-  source              = "./modules/public_ip"
-  name                = "pub-ip"
-  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
-  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
-  allocation_method   = "Static"
-  sku                 = "Basic"
-}
+
 
 resource "azurerm_network_interface_security_group_association" "example" {
   network_interface_id      = module.nic.network_interface_id
   network_security_group_id = module.nsg.nsg_id
 }
 
-# Container App
-module "container_app" {
-  source              = "./modules/container_app"
-  name                = "my-container-app"
-  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
-  container_image     = "nginx:latest"
-  environment_id      = module.container_app_env.id
-
-}
 
 module "container_app_env" {
   source              = "./modules/container_app_env"
@@ -67,7 +50,7 @@ module "container_app_env" {
   location            = "East US" #azurerm_resource_group.rg-pokroy-tf-demo-01.location
   resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
   tags = {
-    enviroment = "production"
+    enviroment = "testing"
     owner      = "pokroy"
   }
 }
