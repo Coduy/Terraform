@@ -6,7 +6,7 @@ variable "resource_group_location" {
 
 variable "node_count" {
   type        = number
-  description = "The initial quantity of nodes for the node pool."
+  description = "T he initial quantity of nodes for the node pool."
   default     = 1
 }
 
