@@ -7,11 +7,18 @@ module "vnet-2" {
 }
 
 module "subnet-2" {
-  source                = "./modules/subnet"
-  subnet_name           = "subnet-2"
-  resource_group_name   = module.vnet-2.resource_group_name
-  virtual_network_name  = module.vnet-2.vnet_name
-  subnet_prefixes       = var.subnet_prefixes
+  source               = "./modules/subnet"
+  subnet_name          = "subnet-2"
+  resource_group_name  = module.vnet-2.resource_group_name
+  virtual_network_name = module.vnet-2.vnet_name
+  subnet_prefixes      = var.subnet_prefixes
+}
+
+module "nsg" {
+  source              = "./modules/nsg"
+  nsg_name            = "my-nsg"
+  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
+  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
 }
 
 # NIC Module
@@ -23,41 +30,45 @@ module "nic" {
   subnet_id             = module.subnet-2.subnet_id
   private_ip_allocation = "Dynamic"
   public_ip_address_id  = module.public_ip.public_ip_id
-  nsg_id = module.nsg.nsg_id
+  nsg_id                = module.nsg.nsg_id #var.NSG_NIC_LINK ? module.nsg.nsg_id : null
 }
 
 
-# Linux VM Module
-module "linux_vm" {
-  create_resource     = var.create_resource
-  source              = "./modules/linux_vm"
-  vm_name             = "my-linux-vm"
-  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
-  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
-  subnet_id           = module.subnet-2.subnet_id
-  vm_size             = "Standard_B1s"
-  admin_username      = "adminuser"
-  ssh_public_key      = file("~/.ssh/id_rsa.pub")  # Path to your SSH public key
-  network_interface_ids = [
-    module.nic.network_interface_id
-  ]
 
-}
 
 # Public IP Module
 module "public_ip" {
   source              = "./modules/public_ip"
-  name                = "example-public-ip"
+  name                = "pub-ip"
   location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
   resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
   allocation_method   = "Static"
   sku                 = "Basic"
 }
 
-module "nsg" {
-  source              = "./modules/nsg"
-  nsg_name            = "my-nsg"
-  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
+resource "azurerm_network_interface_security_group_association" "example" {
+  network_interface_id      = module.nic.network_interface_id
+  network_security_group_id = module.nsg.nsg_id
+}
+
+# Container App
+module "container_app" {
+  source              = "./modules/container_app"
+  name                = "my-container-app"
   resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+  container_image     = "nginx:latest"
+  environment_id      = module.container_app_env.id
+
+}
+
+module "container_app_env" {
+  source              = "./modules/container_app_env"
+  name                = "containerappenv"
+  location            = "East US" #azurerm_resource_group.rg-pokroy-tf-demo-01.location
+  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+  tags = {
+    enviroment = "production"
+    owner      = "pokroy"
+  }
 }
 
