@@ -1,7 +1,7 @@
 # Utiliza Terraform Extension
 
 trigger:
-- develop_template
+- none
 
 pool:
   vmImage: ccvpw-ansible
