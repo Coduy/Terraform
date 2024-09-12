@@ -1,5 +1,5 @@
 output "resource_group_name" {
-  value = azurerm_resource_group.rg-pokroy-tf-demo-01.name
+  value = azurerm_resource_group.rg-pokroy-tf-demo-02.name
 }
 
 output "kubernetes_cluster_name" {
