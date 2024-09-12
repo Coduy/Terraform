@@ -17,15 +17,13 @@ variables:
   value: 'terraformpokroytesting'
 - name: 'Destroy'
   value: 'false'
-- name: 'NSG_NIC_LINK'
-  value: 'true'
  
 stages:
   - stage: tfvalidate
     condition: eq(variables['Destroy'], 'false')
     jobs:
     - job: validate
-      continueOnError: false
+      continueOnError: 'false'
       steps:
       - task: TerraformInstaller@1
         inputs:
@@ -79,7 +77,6 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'plan'
-          commandOptions: '-var="NSG_NIC_LINK=$(NSG_NIC_LINK)"'
           environmentServiceNameAzureRM: 'SP_AzureRM_Pokroy_Testing'
         displayName: Terraform Plan
       - task: TerraformTaskV4@4
@@ -122,7 +119,6 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'destroy'
-          commandOptions: '-var="NSG_NIC_LINK=$(NSG_NIC_LINK)"'
           environmentServiceNameAzureRM: 'SP_AzureRM_Pokroy_Testing'
           args: '-auto-approve'
         displayName: Terraform Destroy
