@@ -10,6 +10,7 @@ resource "azurerm_resource_group" "rg-pokroy-tf-demo-03" {
 }
 
 
+
 resource "random_pet" "azurerm_kubernetes_cluster_name" {
   prefix = "cluster"
 }
