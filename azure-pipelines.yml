@@ -51,7 +51,7 @@ stages:
           provider: 'azurerm'
           command: 'custom'
           customCommand: 'import'
-          commandOptions: 'azurerm_resource_group.rg /subscriptions/4c6a923c-ddba-4a3e-8060-3b3d4628f8b5/resourceGroups/rg-pokroy-tf-demo-03'
+          commandOptions: 'azurerm_resource_group.rg-pokroy-tf-demo-03 /subscriptions/4c6a923c-ddba-4a3e-8060-3b3d4628f8b5/resourceGroups/rg-pokroy-tf-demo-03'
           environmentServiceNameAzureRM: $(bk_service_connection)
         displayName: Terraform Import Resource Group
         
