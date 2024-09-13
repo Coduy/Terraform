@@ -3,6 +3,11 @@ variable "location" {
   type        = string
 }
 
+variable "resource_group_name" {
+  description = "The Azure region in which to create resources."
+  type        = string
+}
+
 variable "storage_account_name" {
   description = "The name of the storage account to create. Must be globally unique."
   type        = string
