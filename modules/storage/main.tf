@@ -4,8 +4,8 @@ provider "azurerm" {
 
 resource "azurerm_storage_account" "storage" {
   name                     = var.storage_account_name
-  resource_group_name       = azurerm_resource_group.rg-pokroy-tf-demo-03.name
-  location                  = azurerm_resource_group.rg-pokroy-tf-demo-03.location
+  resource_group_name       = var.resource_group_name
+  location                  = "NorthEurope"
   account_tier              = "Standard"
   account_replication_type  = "LRS"
 
