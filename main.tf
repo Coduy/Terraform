@@ -21,4 +21,5 @@ module "kubernetes_cluster" {
   ssh_key             = module.ssh_key.public_key
   vm_size             = var.vm_size
   node_count          = var.node_count
+  node_pool_name = var.node_pool_name
 }
