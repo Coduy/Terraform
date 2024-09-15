@@ -1,12 +1,10 @@
 terraform {
+  required_version = ">= 1.6.5"
+
   required_providers {
     azapi = {
-      source  = "azure/azapi"
-      version = "=0.4.0"
+      source = "Azure/azapi"
+      version = "1.12.0"
     }
   }
-}
-
-provider "azapi" {
-  # Configuration options
 }
