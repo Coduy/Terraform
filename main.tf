@@ -14,8 +14,8 @@ module "ssh_key" {
 module "kubernetes_cluster" {
   source              = "./modules/kubernetes_cluster"
   cluster_name        = var.cluster_name
-  location            = module.resource_group.location
-  resource_group_name = module.resource_group.resource_group_name
+  location            = var.location
+  resource_group_name = var.resource_group_name
   dns_prefix          = var.dns_prefix
   admin_username      = var.admin_username
   ssh_key             = module.ssh_key.public_key
