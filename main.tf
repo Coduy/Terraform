@@ -7,7 +7,7 @@ module "resource_group" {
 module "ssh_key" {
   source            = "./modules/ssh_key"
   ssh_key_name      = var.ssh_key_name
-  location          = module.resource_group.location
+  location          = var.location
   resource_group_id = module.resource_group.resource_group_id
 }
 
