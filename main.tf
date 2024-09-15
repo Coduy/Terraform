@@ -23,7 +23,4 @@ module "kubernetes_cluster" {
   node_count          = var.node_count
   node_pool_name = var.node_pool_name
 
-  providers = {
-    azapi = azapi
-  }
 }

@@ -29,11 +29,7 @@ stages:
         inputs:
           terraformVersion: 'latest'
         displayName: Install TF
-
-      - script: |
-          terraform init -upgrade
-        displayName: Initialize Terraform with upgrade        
-
+       
       - script: |
           # ensure ssh public key is available
           echo "$(SSH_PUBLIC_KEY)" >  ~/.ssh/id_rsa.pub
