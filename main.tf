@@ -18,7 +18,7 @@ module "kubernetes_cluster" {
   resource_group_name = var.resource_group_name
   dns_prefix          = var.dns_prefix
   admin_username      = var.admin_username
-  ssh_key             = module.ssh_key.public_key
+  ssh_key             = azapi_resource_action.ssh_public_key_gen.output.publicKey
   vm_size             = var.vm_size
   node_count          = var.node_count
   node_pool_name = var.node_pool_name
