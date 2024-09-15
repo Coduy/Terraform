@@ -13,3 +13,14 @@ resource "azapi_resource_action" "ssh_public_key_gen" {
 
   response_export_values = ["publicKey", "privateKey"]
 }
+
+terraform {
+  required_version = ">= 1.6.5"
+
+  required_providers {
+    azapi = {
+      source = "Azure/azapi"
+      version = "1.12.0"
+    }
+  }
+}
