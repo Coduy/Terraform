@@ -13,7 +13,3 @@ resource "azapi_resource_action" "ssh_public_key_gen" {
 
   response_export_values = ["publicKey", "privateKey"]
 }
-
-output "public_key" {
-  value = azapi_resource_action.ssh_public_key_gen.output.publicKey
-}
