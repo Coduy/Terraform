@@ -1,51 +1,24 @@
-# Generate random resource group name
-resource "random_pet" "rg_name" {
-  prefix = "testname"
+module "resource_group" {
+  source              = "./modules/resource_group"
+  resource_group_name = var.resource_group_name
+  location            = var.location
 }
 
-
-resource "azurerm_resource_group" "rg-pokroy-tf-demo-03" {
-  name     = "rg-pokroy-tf-demo-03"
-  location = var.resource_group_location
+module "ssh_key" {
+  source            = "./modules/ssh_key"
+  ssh_key_name      = var.ssh_key_name
+  location          = module.resource_group.location
+  resource_group_id = module.resource_group.resource_group_id
 }
 
-
-
-resource "random_pet" "azurerm_kubernetes_cluster_name" {
-  prefix = "cluster"
+module "kubernetes_cluster" {
+  source              = "./modules/kubernetes_cluster"
+  cluster_name        = var.cluster_name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.resource_group_name
+  dns_prefix          = var.dns_prefix
+  admin_username      = var.admin_username
+  ssh_key             = module.ssh_key.public_key
+  vm_size             = var.vm_size
+  node_count          = var.node_count
 }
-
-resource "random_pet" "azurerm_kubernetes_cluster_dns_prefix" {
-  prefix = "dns"
-}
-
-resource "azurerm_kubernetes_cluster" "k8s" {
-  location            = azurerm_resource_group.rg-pokroy-tf-demo-03.location
-  name                = random_pet.azurerm_kubernetes_cluster_name.id
-  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-03.name
-  dns_prefix          = random_pet.azurerm_kubernetes_cluster_dns_prefix.id
-
-  identity {
-    type = "SystemAssigned"
-  }
-
-  default_node_pool {
-    name       = "magicpool"
-    vm_size    = "Standard_B2ms"
-    node_count = var.node_count
-  }
-  linux_profile {
-    admin_username = var.username
-
-    ssh_key {
-      key_data = azapi_resource_action.ssh_public_key_gen.output.publicKey
-    }
-  }
-  network_profile {
-    network_plugin    = "kubenet"
-    load_balancer_sku = "standard"
-  }
-}
-
-
-
