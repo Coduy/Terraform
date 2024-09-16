@@ -126,6 +126,13 @@ stages:
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'
+          command: 'show'
+          environmentServiceNameAzureRM: 'SP_AzureRM_Pokroy_Testing'
+        displayName: 'Show Terraform State'
+
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
           command: 'destroy'
           environmentServiceNameAzureRM: 'SP_AzureRM_Pokroy_Testing'
           args: '-auto-approve'
