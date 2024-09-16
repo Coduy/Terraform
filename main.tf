@@ -9,7 +9,7 @@ module "kubernetes_cluster" {
   source              = "./modules/kubernetes_cluster"
   cluster_name        = var.cluster_name
   location            = var.location
-  resource_group_name = module.resource_group.rg.name
+  resource_group_name = module.resource_group.name
   dns_prefix          = var.dns_prefix
   admin_username      = var.admin_username
   vm_size             = var.vm_size
