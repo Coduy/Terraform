@@ -120,18 +120,17 @@ stages:
           backendAzureRmStorageAccountName: $(bk_storage_account)
           backendAzureRmContainerName: $(CONTAINER_NAME)
           backendAzureRmKey: $(KEY)
+        env:
+          TF_LOG: 'DEBUG'  
         displayName: Terraform Init
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'
           command: 'destroy'
-          backendServiceArm: $(bk_service_connection)
-          backendAzureRmResourceGroupName: $(bk_resource_group)
-          backendAzureRmStorageAccountName: $(bk_storage_account)
-          backendAzureRmContainerName: $(CONTAINER_NAME)
-          backendAzureRmKey: $(KEY)
           environmentServiceNameAzureRM: 'SP_AzureRM_Pokroy_Testing'
           args: '-auto-approve'
+        env:
+          TF_LOG: 'DEBUG'  
         displayName: Terraform Destroy
 
 
