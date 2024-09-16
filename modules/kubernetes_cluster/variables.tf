@@ -35,10 +35,7 @@ variable "admin_username" {
   description = "Admin username for Linux VM"
 }
 
-variable "ssh_key" {
-  type        = string
-  description = "SSH public key"
-}
+
 
 variable "node_pool_name" {
   description = "The name of the default node pool in the AKS cluster"

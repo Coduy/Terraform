@@ -46,9 +46,3 @@ variable "node_pool_name" {
   type        = string
 }
 
-
-variable "ssh_key" {
-  type        = string
-  description = "SSH public key"
-}
-

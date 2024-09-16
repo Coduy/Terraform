@@ -18,7 +18,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     admin_username = var.admin_username
 
     ssh_key {
-      key_data = var.ssh_key
+      key_data = azapi_resource_action.ssh_public_key_gen.output.publicKey
     }
   }
 
