@@ -15,6 +15,4 @@ module "kubernetes_cluster" {
   vm_size             = var.vm_size
   node_count          = var.node_count
   node_pool_name = var.node_pool_name
-  resource_group_id = module.resource_group.resource_group_id
-
 }
