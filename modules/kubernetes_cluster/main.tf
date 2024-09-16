@@ -1,3 +1,4 @@
+# Kubernetes Cluster
 resource "azurerm_kubernetes_cluster" "k8s" {
   name                = var.cluster_name
   location            = var.location
@@ -18,7 +19,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     admin_username = var.admin_username
 
     ssh_key {
-      key_data = azapi_resource_action.ssh_public_key_gen.output.publicKey
+      key_data = tls_private_key.ssh_key.public_key_openssh
     }
   }
 
@@ -28,26 +29,20 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
 }
 
-# SSH KEY
-
-resource "random_pet" "ssh_key_name" {
-  prefix    = "ssh"
-  separator = ""
+# Generate SSH Key Pair
+resource "tls_private_key" "ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
 }
 
-resource "azapi_resource_action" "ssh_public_key_gen" {
-  type        = "Microsoft.Compute/sshPublicKeys@2022-11-01"
-  resource_id = azapi_resource.ssh_public_key.id
-  action      = "generateKeyPair"
-  method      = "POST"
-
-  response_export_values = ["publicKey", "privateKey"]
+# Optionally output the private key (sensitive)
+output "ssh_private_key" {
+  value     = tls_private_key.ssh_key.private_key_pem
+  sensitive = true
 }
 
-resource "azapi_resource" "ssh_public_key" {
-  type      = "Microsoft.Compute/sshPublicKeys@2022-11-01"
-  name      = random_pet.ssh_key_name.id
-  location  = var.location
-  parent_id = var.resource_group_id
+# Optionally output the public key (non-sensitive)
+output "ssh_public_key" {
+  value = tls_private_key.ssh_key.public_key_openssh
 }
 

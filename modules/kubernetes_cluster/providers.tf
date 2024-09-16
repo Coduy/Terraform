@@ -3,8 +3,12 @@ terraform {
 
   required_providers {
     azapi = {
-      source = "azure/azapi"
+      source  = "azure/azapi"
       version = "~>1.5"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 3.1"
     }
   }
 }

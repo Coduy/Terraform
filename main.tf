@@ -4,12 +4,6 @@ module "resource_group" {
   location            = var.location
 }
 
-module "ssh_key" {
-  source            = "./modules/ssh_key"
-  ssh_key_name      = var.ssh_key_name
-  location          = var.location
-  resource_group_id = module.resource_group.resource_group_id
-}
 
 module "kubernetes_cluster" {
   source              = "./modules/kubernetes_cluster"
