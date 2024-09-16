@@ -1,4 +1,4 @@
-# Utiliza Terraform Extension {TESTING}
+# Utiliza Terraform Extension 
 
 trigger:
 - develop_aks
