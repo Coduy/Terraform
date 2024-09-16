@@ -1,4 +1,4 @@
-resource_group_name = "rg-pokroy-demo-tf-06"
+resource_group_name = "rg-pokroy-demo-tf-07"
 location            = "NorthEurope"
 ssh_key_name        = "node-ssh-key"
 cluster_name        = "magiccluster"
