@@ -1,85 +1,49 @@
-variable "region" {
-  description = "The Azure region to deploy to"
+variable "resource_group_name" {
+  description = "Name of the resource group"
   type        = string
-  default     = "westeurope"
-}
-
-variable "environment"{
-    type = string
-}
-
-
-variable "project"{
-    type = string
 }
 
 
 variable "location" {
-  description = "The location of the resources"
+  description = "Location for all resources"
   type        = string
-  default     = "westeurope"
+  default     = "East US"
 }
 
-variable "vnet_name" {
-  description = "The name of the virtual network"
+variable "ssh_key_name" {
+  description = "SSH Key name"
   type        = string
-  default     = "example-vnet"
 }
 
-variable "address_space" {
-  description = "The address space of the virtual network"
-  type        = list(string)
-  default     = ["10.0.0.0/16"]
-}
-
-variable "subnet_name" {
-  description = "The name of the subnet"
+variable "cluster_name" {
+  description = "Kubernetes cluster name"
   type        = string
-  default     = "example-subnet"
 }
 
-variable "subnet_prefixes" {
-  description = "The address prefixes for the subnet"
-  type        = list(string)
-  default     = ["10.0.1.0/24"]
-}
-
-variable "subnet3_prefixes" {
-  description = "The address prefixes for the subnet"
-  type        = list(string)
-  default     = ["10.10.10.0/24"]
-}
-
-
-variable "replication_type" {
-  description = "type of replication LSR o GRS"
+variable "dns_prefix" {
+  description = "DNS prefix for Kubernetes cluster"
   type        = string
-  default     = "LRS"
 }
 
-variable "storage_name" {
-  description = "unique storage name"
+variable "admin_username" {
+  description = "Admin username for Kubernetes nodes"
   type        = string
-  default     =  "sgpokroytfdemo02"
-
 }
 
-variable "storage_tier" {
-  description = "storage type, for example: Standard o Premium"
+variable "vm_size" {
+  description = "VM size for Kubernetes nodes"
   type        = string
-  default     = "Standard"
+  default     = "Standard_B2ms"
 }
 
-variable "create_resource"{
-  description = "whether to create the resourece or not"
-  type = string
-  default = "0"
+variable "node_count" {
+  description = "Number of nodes"
+  type        = number
+  default     = 1
 }
 
-variable "NSG_NIC_LINK"{
-  type = bool
-  default = true # puede ser overriddene by pipeline
+variable "node_pool_name" {
+  description = "The name of the default node pool in the AKS cluster"
+  type        = string
 }
-
-
 

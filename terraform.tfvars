@@ -1,3 +1,9 @@
-# terraform.vars
-environment = "dev"
-project     = "example-project"
+resource_group_name = "rg-pokroy-demo-tf-07"
+location            = "NorthEurope"
+ssh_key_name        = "node-ssh-key"
+cluster_name        = "magiccluster"
+node_pool_name      = "magicpool"
+dns_prefix          = "myaks"
+admin_username      = "adminaaks"
+vm_size             = "Standard_B2ms"
+node_count          = 1

@@ -1,7 +1,7 @@
-# Utiliza Terraform Extension {TESTING}
+# Utiliza Terraform Extension 
 
 trigger:
-- none
+- develop_aks
 
 pool:
   name: ccvpw-ansible
@@ -16,22 +16,20 @@ variables:
 - name: bk_storage_account
   value: 'terraformpokroytesting'
 - name: 'Destroy'
-  value: 'false'
-- name: 'NSG_NIC_LINK'
-  value: 'true'
+  value: 'true¡'
  
 stages:
   - stage: tfvalidate
     condition: eq(variables['Destroy'], 'false')
     jobs:
     - job: validate
-      continueOnError: false
+      continueOnError: 'false'
       steps:
       - task: TerraformInstaller@1
         inputs:
           terraformVersion: 'latest'
         displayName: Install TF
-
+       
       - script: |
           # ensure ssh public key is available
           echo "$(SSH_PUBLIC_KEY)" >  ~/.ssh/id_rsa.pub
@@ -47,6 +45,7 @@ stages:
           backendAzureRmContainerName: $(CONTAINER_NAME)
           backendAzureRmKey: $(KEY)
         displayName: Terraform Init
+
         
       - task: TerraformTaskV4@4
         inputs:
@@ -75,12 +74,16 @@ stages:
           backendAzureRmContainerName: $(CONTAINER_NAME)
           backendAzureRmKey: $(KEY)
         displayName: Terraform Init
+
+  
+
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'
           command: 'plan'
-          commandOptions: '-var="NSG_NIC_LINK=$(NSG_NIC_LINK)"'
           environmentServiceNameAzureRM: 'SP_AzureRM_Pokroy_Testing'
+        env:
+          TF_LOG: 'TRACE'
         displayName: Terraform Plan
       - task: TerraformTaskV4@4
         inputs:
@@ -117,14 +120,24 @@ stages:
           backendAzureRmStorageAccountName: $(bk_storage_account)
           backendAzureRmContainerName: $(CONTAINER_NAME)
           backendAzureRmKey: $(KEY)
+        env:
+          TF_LOG: 'DEBUG'  
         displayName: Terraform Init
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'
+          command: 'show'
+          environmentServiceNameAzureRM: 'SP_AzureRM_Pokroy_Testing'
+        displayName: 'Show Terraform State'
+
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
           command: 'destroy'
-          commandOptions: '-var="NSG_NIC_LINK=$(NSG_NIC_LINK)"'
           environmentServiceNameAzureRM: 'SP_AzureRM_Pokroy_Testing'
           args: '-auto-approve'
+        env:
+          TF_LOG: 'DEBUG'  
         displayName: Terraform Destroy
 
 

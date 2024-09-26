@@ -1,74 +1,18 @@
-module "vnet-2" {
-  source              = "./modules/network"
-  vnet_name           = "vnet-2"
-  address_space       = ["10.0.0.0/16"]
+module "resource_group" {
+  source              = "./modules/resource_group"
+  resource_group_name = var.resource_group_name
   location            = var.location
-  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
-}
-
-module "subnet-2" {
-  source               = "./modules/subnet"
-  subnet_name          = "subnet-2"
-  resource_group_name  = module.vnet-2.resource_group_name
-  virtual_network_name = module.vnet-2.vnet_name
-  subnet_prefixes      = var.subnet_prefixes
-}
-
-module "nsg" {
-  source              = "./modules/nsg"
-  nsg_name            = "my-nsg"
-  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
-  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
-}
-
-# NIC Module
-module "nic" {
-  source                = "./modules/nic"
-  name                  = "nic"
-  location              = "West Europe"
-  resource_group_name   = azurerm_resource_group.rg-pokroy-tf-demo-01.name
-  subnet_id             = module.subnet-2.subnet_id
-  private_ip_allocation = "Dynamic"
-  public_ip_address_id  = module.public_ip.public_ip_id
-  nsg_id                = module.nsg.nsg_id #var.NSG_NIC_LINK ? module.nsg.nsg_id : null
 }
 
 
-
-
-# Public IP Module
-module "public_ip" {
-  source              = "./modules/public_ip"
-  name                = "pub-ip"
-  location            = azurerm_resource_group.rg-pokroy-tf-demo-01.location
-  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
-  allocation_method   = "Static"
-  sku                 = "Basic"
+module "kubernetes_cluster" {
+  source              = "./modules/kubernetes_cluster"
+  cluster_name        = var.cluster_name
+  location            = var.location
+  resource_group_name = module.resource_group.resource_group_name
+  dns_prefix          = var.dns_prefix
+  admin_username      = var.admin_username
+  vm_size             = var.vm_size
+  node_count          = var.node_count
+  node_pool_name = var.node_pool_name
 }
-
-resource "azurerm_network_interface_security_group_association" "example" {
-  network_interface_id      = module.nic.network_interface_id
-  network_security_group_id = module.nsg.nsg_id
-}
-
-# Container App
-module "container_app" {
-  source              = "./modules/container_app"
-  name                = "my-container-app"
-  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
-  container_image     = "nginx:latest"
-  environment_id      = module.container_app_env.id
-
-}
-
-module "container_app_env" {
-  source              = "./modules/container_app_env"
-  name                = "containerappenv"
-  location            = "East US" #azurerm_resource_group.rg-pokroy-tf-demo-01.location
-  resource_group_name = azurerm_resource_group.rg-pokroy-tf-demo-01.name
-  tags = {
-    enviroment = "production"
-    owner      = "pokroy"
-  }
-}
-
