@@ -15,7 +15,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     node_count = var.node_count
   }
 
-  kubernetes_version = "1.26.0" 
+  kubernetes_version = "1.27.9" 
 
   linux_profile {
     admin_username = var.admin_username
