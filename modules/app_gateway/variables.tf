@@ -56,6 +56,7 @@ variable "protocol" {
 variable "backend_ip_address" {
   description = "The IP address of the backend pool."
   type        = string
+  default     = ""
 }
 
 variable "backend_port" {
